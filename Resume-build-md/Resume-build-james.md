@@ -1,0 +1,62 @@
+Resume Build Steps
+
+- Page's top, bottom, left, right margins are 0.5 inch. All font style is "Arial". Page's size is A4. Normal text format: 10, left
+    - Put "James Nguyen" format: center, Bold, 22(font size)
+    - Enter
+    - Put "[Senior Software Engineer]" format: center, 10
+    - Shift Enter
+    - Put "Elk Grove, CA, 95624 • (518) 806 2880 • james.nguyen.950816@gmail.com" format: center, 10
+    - Enter
+    - Enter
+    - Put "Professional Summary" format: center, 12, bold, bottom border
+    - Enter
+    - Put "[Senior Software Engineer xxx xxx xxx ...]" starting with tab (tab for only first line). format: normal text justify
+    - Enter
+    - Put "Skills" format: center, 12, bold, bottom border
+    - Enter
+    - Use the data of the Resume-skills.md. Make each line and one bullet
+    - Enter
+    - Put "Experience" format: Center, 12, bold, bottom border
+    - Enter
+    - Build First Experience section according to the following rule
+      - Use data from Resume-xp-1.md (<1> means first line of the file)
+      - Put <1> format: bold, Uppercase
+      - Shift Enter
+      - Put "Accenture | United States | Remote"
+      - Shift Enter
+      - Put "08/2023 ~ 11/2025"
+      - Enter
+      - Bullet: "Delivered major enterprise-level platforms within the company's Technology Pattern"
+      - Sub Bullet: <2>
+      - Sub Sub Bullet: <3> - <8>, format: justify
+      - Sub Bullet: <9>
+      - Sub Sub Bullet: <10> - <14>, format: justify
+      - Bullet: <15>, <16>
+    - Enter
+    - Build Second Experience section according to the following rule
+      - Use data from Resume-xp-2.md
+      - Put <1> format: bold, Uppercase
+      - Shift Enter
+      - Put "Amazon | United States | Remote"
+      - Shift Enter
+      - Put "02/2020 ~ 07/2023"
+      - Enter
+      - Bullets: <2> - <9>, format: justify
+    - Enter
+    - Build Second Experience section according to the following rule
+      - Use data from Resume-xp-3.md
+      - Put <1> format: bold, Uppercase
+      - Shift Enter
+      - Put "Chime | United States | Hybrid"
+      - Shift Enter
+      - Put "08/2017 ~ 01/2020"
+      - Enter
+      - Bullets: <2> - <7>, format: justify
+    - Enter
+    - Put "Certifications" format: center, 12, bold, bottom border
+    - Enter
+    - Bullet: "Meta Full-Stack Engineer(Coursera)", format: bold
+    - Enter
+    - Put "Education" format: center, 12, bold, bottom border
+    - Enter
+    - Bullet: "University of California, Berkeley | Bachelor of Science in Computer Science | 04/2012 ~ 07/2016" format: bold(university name)

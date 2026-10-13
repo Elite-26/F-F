@@ -1,0 +1,66 @@
+Senior Backend Engineer
+
+About the job
+About Yendo
+
+Hi there, we're Yendo, and we are improving the way people finance their daily lives. In less than 2 years, we’ve saved customers over $60 million in unnecessary interest and fees.
+
+📱 Using modern technology, we instantly value a borrower's vehicle and issue vehicle-secured credit cards that are ~96% cheaper than traditional options. Yendo Credit Cards have a standard interest rate of 29.88% APR with no hidden fees or overdraft charges and help build our customers’ credit scores.
+
+About The Role
+
+This is an exciting opportunity to join a Series A startup working to democratize access to affordable credit in an industry with over $1 trillion dollars in annual transaction flow.
+
+As an early Backend Engineer at Yendo, you will work with a small team of experienced engineers, product managers, and designers to build our product.
+
+Our team is small and lean — your responsibilities will include everything from expanding our product offering to evolving our code standards to improving our operational efficiency.
+
+This is a senior level role with competitive salary and equity incentives.
+
+What we're looking for
+
+Desire to work collaboratively. Engineers participate in the product development cycle from start to finish. We operate on the principle that the best products include input from our users and our engineering, product, and design teams.
+Help with raising the bar! We strive to improve our customer experience, our hiring standards, and our engineering practices. As part of a small team, you can meaningfully contribute across all of these fronts.
+Resiliency. We are not a “me too” product. This requires experimentation and grit to find solutions for our customers’ problems.
+
+Who you are
+
+5+ years of experience with backend or full stack solutions (e.g., Go (Preferred), TypeScript, Java, Python, or Ruby)
+Prefer experience with Postgres, Redis, and AWS, but not required.
+Enjoy thinking about systems — their life cycles, edge cases, interactions, and failure modes.
+Self-starter and able to work independently.
+Experience in fintech, payments, processing, card networks, banking, or early stage startup is helpful, but not required.
+Passionate about financial inclusion and mobility.
+
+Why join us
+
+🤝You can make a real impact to the lives of our customers.
+
+💳 100 million Americans lack access to sustainable credit and are forced to use predatory loans. Think 500%+ APR alternative financing options such as Auto Title, Payday, Pawn, and Personal Loans. Each year almost 25% of adults are excluded from the mainstream credit system, severely inhibiting their chances of accessing affordable borrowing, getting a mortgage, or even an auto loan.
+
+👨‍💼 Our leadership team has founded, built, scaled, and exited multiple businesses, some of which reached over $100M ARR and $1B+ valuations.
+
+🧠We are backed by leading VCs, accomplished entrepreneurs, respected philanthropists, and founders from across the U.S. Our backers are the minds and investors behind the success of the Apple Card, Brex, Dave, Scribd, Parse, Canva, Robinhood, Flexport, Gusto, Reddit, Notion, LinkedIn, among others.
+
+Stage: Series B
+
+Yendo is based in Dallas, Texas with a nationwide team. This role is remote or in our office in the Deep Ellum area of Dallas.
+
+💰Competitive Compensation
+
+📈Equity
+
+🍎Insurance
+
+📊 401K
+
+🏝Unlimited PTO
+
+Yendo’s core values
+
+Our customers are our compass - We prioritize our customers' needs in every decision, guiding our work to solve real problems and create meaningful solutions. We make a positive impact by enhancing their experiences and addressing what truly matters to them.
+Trust is earned, not assumed - We communicate openly, honestly, and with humility, earning trust through integrity and clarity in all interactions. By prioritizing straightforward communication and actions, we build strong relationships and ensure our intentions are always understood.
+Diverse perspectives, stronger outcomes - We serve diverse customers and believe that different perspectives make us stronger. Committed to equity, we value each team member, ensuring all voices are heard and respected. By fostering an inclusive culture, we empower fair and meaningful contributions to drive our success.
+Embrace Growth Together - We are drivers, we move with urgency, and we strive for excellence in everything we do. Our customers deserve the best, so we hold ourselves accountable to high standards. Through proactive ownership, thoughtful execution, and a commitment to bettering ourselves and our work every day, we deliver results that make a lasting impact.
+Own every outcome - Rooted in expertise and creativity, innovation is at our core. We challenge norms, push past limitations, and seek to redefine boundaries. Yesterday’s plan may be outdated given today’s information and by questioning assumptions and challenging one another, we stay agile and open-minded, turning every situation into an opportunity to delight our customers.
+Courage to challenge - Low ego, coaching, and mutual respect are the foundation of our teamwork. We empower each other and solve problems collaboratively without blame, creating a space for everyone to thrive and contribute to our collective success.

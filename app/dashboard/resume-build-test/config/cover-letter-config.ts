@@ -1,0 +1,40 @@
+/**
+ * Configuration for cover letter generation
+ */
+
+// ============================================================================
+// COVER LETTER DATA
+// ============================================================================
+// Cover letter content: each line is one string array element
+export const COVER_LETTER_DATA = {
+  // Header: [name, contact] (similar to resume but without title)
+  header: [
+    'James Nguyen',
+    'Elk Grove, CA, 95624 • (518) 806 2880 • james.nguyen.950816@gmail.com',
+  ],
+  
+  // Content: array of paragraphs (each line is one string)
+  content: [
+    'Dear Hiring Manager,',
+    'I am writing to express my interest in the AI Software Engineer position at ECU Health. With over 8 years of experience in developing scalable AI solutions, I\'m eager to contribute my skills to improve healthcare outcomes through innovative software development. The opportunity to work in a mission-driven organization like ECU Health, dedicated to transforming the healthcare system, aligns perfectly with my own professional and personal goals.',
+    'In my most recent role as a Senior AI Software Engineer at Cohere, I led the design and deployment of AI-powered solutions that automated workflows and integrated complex machine learning models into production environments. My expertise in Python, Java, and C++ allowed me to build scalable and efficient software applications that improved operational efficiency and model performance. I collaborated closely with machine learning engineers, cloud engineers, and other technical teams to ensure smooth deployment and ongoing enhancement of AI systems, all while maintaining rigorous compliance with industry standards and regulations.',
+    'Previously, as an AI Software Engineer at Scale AI, I was responsible for developing high-performance APIs and managing CI/CD pipelines for large-scale AI solutions. I contributed to automating code deployment processes and integrating AI models into live systems, reducing manual intervention and ensuring a seamless user experience. My experience also included troubleshooting production issues, improving system stability, and promoting a collaborative environment through knowledge sharing and training sessions.',
+    'The prospect of contributing to ECU Health\'s mission to improve the health of eastern North Carolina excites me. I am particularly drawn to the challenge of developing software solutions that integrate AI models into healthcare applications, ensuring they are scalable, secure, and compliant with relevant regulations. I am confident that my technical skills, problem-solving abilities, and commitment to continuous learning make me a strong fit for this role.',
+    'I would welcome the opportunity to discuss how my experience aligns with the needs of your team and to explore how I can contribute to ECU Health\'s ongoing digital transformation efforts. Thank you for considering my application. I look forward to the possibility of working together.',
+  ],
+  
+  // Footer: [closing, signature]
+  footer: [
+    'Best regards',
+    'James Nguyen',
+  ],
+} as const;
+
+// ============================================================================
+// EXPORT FILE NAMES
+// ============================================================================
+export const COVER_LETTER_EXPORT_FILES = {
+  pdf: 'cover-letter-james-nguyen.pdf',
+  docx: 'cover-letter-james-nguyen.docx',
+} as const;
+
