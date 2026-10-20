@@ -8,7 +8,7 @@ export interface User {
   name: string;
   role: 'admin' | 'user'; // Add more roles as needed
   approved: boolean; // User can only login after admin approval
-  resumeTemplate?: 'template_1' | 'template_2';
+  resumeTemplate?: 'template_1' | 'template_2' | 'template_3';
   /** option_1 = company/location from Options (static); option_2 = from tailored Company:/Location: lines */
   experienceOption?: 'option_1' | 'option_2';
   createdAt: Date;
@@ -31,7 +31,7 @@ export interface SafeUser {
   name: string;
   role: string;
   approved: boolean;
-  resumeTemplate: 'template_1' | 'template_2';
+  resumeTemplate: 'template_1' | 'template_2' | 'template_3';
   experienceOption: 'option_1' | 'option_2';
   createdAt: Date;
 }

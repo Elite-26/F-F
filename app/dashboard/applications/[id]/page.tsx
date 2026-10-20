@@ -13,6 +13,7 @@ import { renderCertificationsPreview } from '../../resume-build-test/sections/ce
 import { renderEducationPreview } from '../../resume-build-test/sections/education';
 import { renderCoverLetterPreview } from '../../resume-build-test/sections/cover-letter';
 import { Template2Preview } from '../../resume-build-test/sections/template2-preview';
+import { Template3Preview } from '../../resume-build-test/sections/template3-preview';
 import { normalizeResumeTemplate } from '@/lib/resume/template-ids';
 import {
   normalizeExperienceOption,
@@ -2114,6 +2115,18 @@ export default function ApplicationDetailPage() {
                        position: 'relative',
                      }}
                    >
+                    {jobTargetConfig?.resumeConfig && resumeTemplate === 'template_3' && (
+                      <Template3Preview
+                        fullName={jobTargetConfig.resumeConfig.header?.[0] || ''}
+                        contact={jobTargetConfig.resumeConfig.header?.[2] || ''}
+                        summary={tailoredSummary || ''}
+                        skills={tailoredResult1 || []}
+                        experienceStatic={jobTargetConfig.resumeConfig.experience_static || []}
+                        experienceDynamic={experienceDynamicPreview}
+                        education={jobTargetConfig.resumeConfig.education || []}
+                        certifications={tailoredCertifications}
+                      />
+                    )}
                     {jobTargetConfig?.resumeConfig && resumeTemplate === 'template_2' && (
                       <Template2Preview
                         fullName={jobTargetConfig.resumeConfig.header?.[0] || ''}

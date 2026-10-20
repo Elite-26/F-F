@@ -54,6 +54,7 @@ import {
   extractExperienceTitle,
 } from '../../../lib/resume/experience-option';
 import { writeTemplate2Resume } from '../../../lib/resume/template2';
+import { writeTemplate3Resume } from '../../../lib/resume/template3';
 
 export default async function handler(
   req: NextApiRequest,
@@ -184,8 +185,8 @@ export default async function handler(
     const resumeTemplate = normalizeResumeTemplate(user.resumeTemplate);
     console.log(`Resume export for ${user.email}: ${resumeTemplate}`);
 
-    if (resumeTemplate === 'template_2') {
-      await writeTemplate2Resume({
+    if (resumeTemplate === 'template_2' || resumeTemplate === 'template_3') {
+      const resumeInput = {
         exportDir: normalizedExportLocation,
         fullName: headerConfig[0] || '',
         contact: headerConfig[2] || '',
@@ -195,7 +196,12 @@ export default async function handler(
         experienceDynamic: experienceConfig.experience_dynamic || [],
         education: educationConfig || [],
         certifications: certificationsConfig.certifications || [],
-      });
+      };
+      if (resumeTemplate === 'template_3') {
+        await writeTemplate3Resume(resumeInput);
+      } else {
+        await writeTemplate2Resume(resumeInput);
+      }
     } else {
     // Create PDF context
     const pdf = new jsPDF({

@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import JSZip from 'jszip';
-import jsPDF from 'jspdf';
 import {
   buildEducationItems,
   buildExperienceItems,
@@ -9,7 +8,8 @@ import {
   ExperienceItem,
   parseContact,
 } from './template2-model';
-import { applyInlineBoldMarkers, drawRichParagraph } from './rich-text';
+import { convertDocxToPdf } from './docx-to-pdf';
+import { applyInlineBoldMarkers } from './rich-text';
 
 export { buildEducationItems, buildExperienceItems, parseContact };
 
@@ -25,14 +25,6 @@ export interface Template2Input {
   certifications: string[];
 }
 
-const PAGE_W = 612;
-const PAGE_H = 792;
-const MARGIN = 43.2;
-const ORANGE: [number, number, number] = [227, 108, 10];
-const BLUE: [number, number, number] = [84, 141, 212];
-const MAROON: [number, number, number] = [148, 54, 52];
-const GRAY: [number, number, number] = [128, 128, 128];
-const INK: [number, number, number] = [0, 0, 0];
 const TEMPLATE_FILE = 'Template 2.docx';
 
 function escapeXml(value: string): string {
@@ -358,210 +350,6 @@ export async function writeTemplateDocx(
   fs.writeFileSync(outputPath, buffer);
 }
 
-function registerBodyFont(pdf: jsPDF): string {
-  const families = [
-    {
-      name: 'Arial',
-      files: {
-        normal: 'C:/Windows/Fonts/arial.ttf',
-        bold: 'C:/Windows/Fonts/arialbd.ttf',
-        italic: 'C:/Windows/Fonts/ariali.ttf',
-        bolditalic: 'C:/Windows/Fonts/arialbi.ttf',
-      },
-    },
-    {
-      name: 'Georgia',
-      files: {
-        normal: 'C:/Windows/Fonts/georgia.ttf',
-        bold: 'C:/Windows/Fonts/georgiab.ttf',
-        italic: 'C:/Windows/Fonts/georgiai.ttf',
-        bolditalic: 'C:/Windows/Fonts/georgiaz.ttf',
-      },
-    },
-  ];
-  const spec = families.find((family) => fs.existsSync(family.files.normal));
-  if (!spec) {
-    return 'times';
-  }
-  Object.entries(spec.files).forEach(([style, filePath]) => {
-    if (!fs.existsSync(filePath)) {
-      return;
-    }
-    const vfsName = `${spec.name}-${style}.ttf`;
-    pdf.addFileToVFS(vfsName, fs.readFileSync(filePath).toString('base64'));
-    pdf.addFont(vfsName, spec.name, style);
-  });
-  return spec.name;
-}
-
-function writeTemplate2Pdf(input: Template2Input, outputPath: string): void {
-  const { location, phone, email } = parseContact(input.contact || '');
-  const experiences = buildExperienceItems(input.experienceStatic || [], input.experienceDynamic || []);
-  const education = buildEducationItems(input.education || []);
-  const skills = (input.skills || []).map((skill) => skill.trim()).filter(Boolean);
-  const certifications = (input.certifications || []).map((item) => item.trim()).filter(Boolean);
-  const summary = (input.summary || '').replace(/\s+/g, ' ').trim();
-
-  const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'letter' });
-  const font = registerBodyFont(pdf);
-  const contentWidth = PAGE_W - MARGIN * 2;
-  let y = MARGIN + 14;
-
-  const newPage = () => {
-    pdf.addPage();
-    y = MARGIN + 12;
-  };
-
-  const ensure = (needed: number) => {
-    if (y + needed > PAGE_H - MARGIN) {
-      newPage();
-    }
-  };
-
-  const drawBody = (text: string, x: number, width: number) => {
-    const yRef = { y };
-    drawRichParagraph(pdf, text, x, yRef, width, {
-      font,
-      fontSize: 10,
-      color: INK,
-      lineHeight: 13,
-      ensure,
-    });
-    y = yRef.y;
-  };
-
-  const drawSection = (title: string) => {
-    ensure(28);
-    y += 10;
-    pdf.setFont(font, 'bold');
-    pdf.setFontSize(12);
-    pdf.setTextColor(...BLUE);
-    pdf.text(title, MARGIN, y);
-    y += 3;
-    pdf.setDrawColor(0, 0, 0);
-    pdf.setLineWidth(0.5);
-    pdf.line(MARGIN, y, PAGE_W - MARGIN, y);
-    y += 14;
-  };
-
-  const drawPair = (
-    leftText: string,
-    rightText: string,
-    leftWeight: 'bold' | 'normal' | 'italic',
-    leftSize: number,
-    leftColor: [number, number, number],
-    rightWeight: 'bold' | 'normal' | 'italic',
-    rightSize: number,
-    rightColor: [number, number, number]
-  ) => {
-    pdf.setFont(font, rightWeight);
-    pdf.setFontSize(rightSize);
-    const rightWidth = rightText ? pdf.getTextWidth(rightText) : 0;
-    const leftMax = Math.max(contentWidth - rightWidth - 12, 180);
-    pdf.setFont(font, leftWeight);
-    pdf.setFontSize(leftSize);
-    const lines: string[] = pdf.splitTextToSize(leftText || '', leftMax);
-    const lineHeight = leftSize + 3;
-    if (lines.length === 0 && rightText) {
-      ensure(lineHeight);
-      pdf.setFont(font, rightWeight);
-      pdf.setFontSize(rightSize);
-      pdf.setTextColor(...rightColor);
-      pdf.text(rightText, PAGE_W - MARGIN, y, { align: 'right' });
-      y += lineHeight;
-      return;
-    }
-    lines.forEach((line, index) => {
-      ensure(lineHeight);
-      pdf.setFont(font, leftWeight);
-      pdf.setFontSize(leftSize);
-      pdf.setTextColor(...leftColor);
-      pdf.text(line, MARGIN, y);
-      if (index === 0 && rightText) {
-        pdf.setFont(font, rightWeight);
-        pdf.setFontSize(rightSize);
-        pdf.setTextColor(...rightColor);
-        pdf.text(rightText, PAGE_W - MARGIN, y, { align: 'right' });
-      }
-      y += lineHeight;
-    });
-  };
-
-  const drawBullet = (text: string, level: number, glyph: string) => {
-    const bulletX = MARGIN + [2, 16, 32][level];
-    const textX = MARGIN + [14, 30, 46][level];
-    const textWidth = PAGE_W - MARGIN - textX;
-    ensure(13);
-    pdf.setFont(font, 'normal');
-    pdf.setFontSize(10);
-    pdf.setTextColor(...INK);
-    pdf.text(glyph, bulletX, y);
-    drawBody(text, textX, textWidth);
-  };
-
-  pdf.setFont(font, 'bold');
-  pdf.setFontSize(18);
-  pdf.setTextColor(...ORANGE);
-  pdf.setCharSpace(2);
-  const nameLines: string[] = pdf.splitTextToSize(input.fullName || '', contentWidth);
-  nameLines.forEach((line) => {
-    pdf.text(line, PAGE_W / 2, y, { align: 'center' });
-    y += 22;
-  });
-  pdf.setCharSpace(0);
-
-  const contactLine = [location, phone, email].filter(Boolean).join(' | ');
-  if (contactLine) {
-    pdf.setFont(font, 'normal');
-    pdf.setFontSize(10);
-    pdf.setTextColor(...GRAY);
-    const contactLines: string[] = pdf.splitTextToSize(contactLine, contentWidth);
-    contactLines.forEach((line) => {
-      pdf.text(line, PAGE_W / 2, y, { align: 'center' });
-      y += 13;
-    });
-  }
-
-  drawSection('Professional Summary');
-  if (summary) {
-    drawBody(summary, MARGIN, contentWidth);
-  }
-
-  drawSection('Skills');
-  skills.forEach((skill) => drawBullet(skill, 0, '•'));
-
-  drawSection('Professional Experience');
-  experiences.forEach((item, expIndex) => {
-    y += expIndex === 0 ? 0 : 2;
-    drawPair(item.company, item.timeline, 'bold', 12, INK, 'bold', 10, MAROON);
-    drawPair(item.title, item.location, 'bold', 11, MAROON, 'italic', 10, INK);
-    item.lines.forEach((entry) => {
-      if (entry.kind === 'project') {
-        drawBullet(entry.text, 1, 'o');
-      } else if (entry.kind === 'projectDetail') {
-        drawBullet(entry.text, 2, '•');
-      } else {
-        drawBullet(entry.text, 0, '•');
-      }
-    });
-  });
-
-  drawSection('Education');
-  education.forEach((item) => {
-    drawPair(item.school, item.timeline, 'bold', 11, INK, 'normal', 10, INK);
-    drawPair(item.degree, item.location, 'italic', 10, INK, 'italic', 10, INK);
-    y += 4;
-  });
-
-  if (certifications.length > 0) {
-    drawSection('Certifications');
-    certifications.forEach((certification) => drawBullet(certification, 0, '•'));
-  }
-
-  const pdfBuffer = Buffer.from(pdf.output('arraybuffer'));
-  fs.writeFileSync(outputPath, pdfBuffer);
-}
-
 export async function writeTemplate2Resume(input: Template2Input): Promise<void> {
   if (!fs.existsSync(input.exportDir)) {
     fs.mkdirSync(input.exportDir, { recursive: true });
@@ -569,5 +357,5 @@ export async function writeTemplate2Resume(input: Template2Input): Promise<void>
   const docxPath = path.join(input.exportDir, 'Resume.docx');
   const pdfPath = path.join(input.exportDir, 'Resume.pdf');
   await writeTemplateDocx(TEMPLATE_FILE, input, docxPath);
-  writeTemplate2Pdf(input, pdfPath);
+  await convertDocxToPdf(docxPath, pdfPath);
 }

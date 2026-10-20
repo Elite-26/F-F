@@ -7,7 +7,7 @@ declare module 'next-auth' {
       email: string;
       name: string;
       role: string;
-      resumeTemplate?: 'template_1' | 'template_2';
+      resumeTemplate?: 'template_1' | 'template_2' | 'template_3';
       experienceOption?: 'option_1' | 'option_2';
     };
   }
